@@ -153,5 +153,5 @@ def logout():
 
 #create  main function
 if __name__=='__main__':
-    app.run(debug=True,port=3003)
+    app.run(debug=True,port=3003,host='0.0.0.0')
 

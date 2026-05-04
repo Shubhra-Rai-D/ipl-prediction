@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Score | IPL Predictor</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-dark-blue">
+
+    <nav class="navbar">
+        <div class="logo"><i class="fas fa-trophy"></i> IPL<span>Predictor</span></div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/predict" class="active">Predict Score</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    {% if prediction %}
+    <h1 style="color: white;text-align:center;margin-top:20px">Predict Score:{{prediction}}</h1>
+
+    {% endif %}
+    
+
+    <div class="container">
+        <div class="prediction-wrapper">
+            <div class="form-card">
+                <div class="form-header">
+                    <h2>Match Statistics</h2>
+                </div>
+
+                <form method="post" action="/predict">
+                    <div class="input-grid">
+                        <div class="field">
+                            <label>Batting Team</label>
+                            <select name="bat_team" required>
+                                <option value="" disabled selected>Select Team</option>
+                                <option value="Chennai Super Kings">Chennai Super Kings</option>
+                                <option value="Mumbai Indians">Mumbai Indians</option>
+                                <option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+                                <option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+                                <option value="Rajasthan Royals">Rajasthan Royals</option>
+                                <option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+                                <option value="Delhi Daredevils">Delhi Daredevils</option>
+                                <option value="Kings XI Punjab">Kings XI Punjab</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Bowling Team</label>
+                            <select name="bowl_team" required>
+                                <option value="" disabled selected>Select Team</option>
+                                <option value="Mumbai Indians">Mumbai Indians</option>
+                                <option value="Chennai Super Kings">Chennai Super Kings</option>
+                                <option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+                                <option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+                                <option value="Rajasthan Royals">Rajasthan Royals</option>
+                                <option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+                                <option value="Delhi Daredevils">Delhi Daredevils</option>
+                                <option value="Kings XI Punjab">Kings XI Punjab</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-grid-three">
+                        <div class="field">
+                            <label>Runs</label>
+                            <input type="number" name="runs" placeholder="e.g. 120" required>
+                        </div>
+                        <div class="field">
+                            <label>Wickets</label>
+                            <input type="number" name="wickets" placeholder="0-9" min="0" max="9" required>
+                        </div>
+                        <div class="field">
+                            <label>Overs</label>
+                            <input type="number" step="0.1" name="overs" placeholder="e.g. 14.2" required>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <div class="input-grid">
+                            <div class="field">
+                                <label>Runs (Last 5 Ov)</label>
+                                <input type="number" name="runs_last_5" placeholder="e.g. 45" required>
+                            </div>
+                            <div class="field">
+                                <label>Wickets (Last 5 Ov)</label>
+                                <input type="number" name="wickets_last_5" placeholder="e.g. 2" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="predict-btn">Predict Final Score</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

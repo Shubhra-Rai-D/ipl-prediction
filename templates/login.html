@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | IPL Predictor</title>
+
+    <!-- Link Login CSS -->
+    <link rel="stylesheet" href="../static/login.css">
+</head>
+<body>
+{% for m in get_flashed_messages() %}
+<script>
+    alert("{{m}}")
+</script>
+{% endfor %}
+
+<div class="login-container">
+    <h2>Login</h2>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p class="error">{{ messages[0] }}</p>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/login">
+
+        <!-- Gmail Only -->
+        <div class="input-box">
+            <input type="email"
+                   name="username"
+                   placeholder="Enter Gmail ID"
+                   pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+                   title="Email must be in @gmail.com format"
+                   required>
+        </div>
+
+        <!-- Strong Password -->
+        <div class="input-box">
+            <input type="password"
+                   name="password"
+                   placeholder="Enter Password"
+                   required>
+        </div>
+
+        <button type="submit" class="login-btn">Login</button>
+    </form>
+
+    <div class="link">
+        Don't have an account?
+        <a href="/register">Register</a>
+    </div>
+</div>
+
+</body>
+</html>

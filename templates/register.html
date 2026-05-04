@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | IPL Predictor</title>
+
+    
+    <link rel="stylesheet" href="../static/register.css">
+</head>
+<body>
+{% for m in get_flashed_messages() %}
+<script>
+    alert("{{m}}")
+</script>
+{% endfor %}
+
+
+<div class="register-container">
+    <h2>Create Account</h2>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p class="error">{{ messages[0] }}</p>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/register">
+
+        <!-- Gmail Validation -->
+        <div class="input-box">
+            <input type="email"
+                   name="username"
+                   placeholder="Enter Gmail ID"
+                   pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+                   title="Email must be in @gmail.com format"
+                   required>
+        </div>
+
+        <!-- Strong Password Validation -->
+        <div class="input-box">
+            <input type="password"
+                   name="password"
+                   placeholder="Create Strong Password"
+            
+                   required>
+        </div>
+
+        <button type="submit" class="register-btn">Register</button>
+    </form>
+
+    <div class="link">
+        Already have an account?
+        <a href="/login">Login</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -7,10 +7,18 @@ from supabase import create_client, Client
 from hashlib import sha256
 
 # ------------------ SUPABASE CONFIG ------------------
-url = os.environ.get("SUPABASE_URL")
-key = os.environ.get("SUPABASE_KEY")
+supabase: Client = None
 
-supabase: Client = create_client(url, key)
+def get_supabase() -> Client:
+    global supabase
+    if supabase is None:
+        url = os.environ.get("SUPABASE_URL")
+        key = os.environ.get("SUPABASE_KEY")
+        if url and key:
+            supabase = create_client(url, key)
+        else:
+            raise RuntimeError("SUPABASE_URL and SUPABASE_KEY environment variables are required")
+    return supabase
 
 # ------------------ FLASK APP ------------------
 app = Flask(__name__)
@@ -69,7 +77,7 @@ def register():
         email = request.form.get('username')
         password = request.form.get('password')
 
-        existing = supabase.table('users').select("*").eq("email", email).execute()
+        existing = get_supabase().table('users').select("*").eq("email", email).execute()
 
         if existing.data:
             flash("Email already exists", "error")
@@ -77,7 +85,7 @@ def register():
 
         hashed_password = hash_password(password)
 
-        supabase.table("users").insert({
+        get_supabase().table("users").insert({
             "uname": email.split('@')[0],
             "email": email,
             "password": hashed_password
@@ -96,7 +104,7 @@ def login():
 
         hashed_password = hash_password(password)
 
-        result = supabase.table('users').select("*") \
+        result = get_supabase().table('users').select("*") \
             .eq("email", email).eq("password", hashed_password).execute()
 
         if result.data:
